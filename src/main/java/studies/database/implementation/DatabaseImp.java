@@ -8,10 +8,9 @@ import java.sql.*;
 import java.util.Map;
 
 public class DatabaseImp implements Database {
-    private Connection connection = null;
+    private static Connection connection = null;
 
-    @Override
-    public Connection getConnection() {
+    public static Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
                 Map<String, Object> properties = ConfigLoader.loadConfig("application.yml");
@@ -29,8 +28,7 @@ public class DatabaseImp implements Database {
         return connection;
     }
 
-    @Override
-    public void closeConnection() {
+    public static void closeConnection() {
         if (connection != null) {
             try {
                 connection.close();
